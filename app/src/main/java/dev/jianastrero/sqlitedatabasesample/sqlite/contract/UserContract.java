@@ -7,7 +7,7 @@ public class UserContract {
     private UserContract() {}
 
     public static final String SQL_CREATE_TABLE =
-            "CREATE TABLE " + UserEntry.TABLE_NAME + " (" +
+            "CREATE TABLE IF NOT EXISTS " + UserEntry.TABLE_NAME + " (" +
                     UserEntry._ID + " INTEGER PRIMARY KEY," +
                     UserEntry.COLUMN_FIRST_NAME + " TEXT," +
                     UserEntry.COLUMN_LAST_NAME + " TEXT," +

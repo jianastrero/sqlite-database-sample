@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import dev.jianastrero.sqlitedatabasesample.entity.dto.UserDTO;
-import dev.jianastrero.sqlitedatabasesample.sqlite.dao.UserDao;
+import dev.jianastrero.sqlitedatabasesample.sqlite.dao.SecureUserDao;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,25 +42,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUserCountText() {
         TextView tvUserCount = findViewById(R.id.tvUserCount);
-        int userCount = UserDao.getUsers().size();
+        int userCount = SecureUserDao.getUsers().size();
         tvUserCount.setText("User Count: " + userCount);
     }
 
     private void updateFirstUserText() {
         TextView tvFirstUser = findViewById(R.id.tvFirstUser);
-        int firstUserId = UserDao.getFirstUserId();
+        int firstUserId = SecureUserDao.getFirstUserId();
 
         if (firstUserId == -1) {
             tvFirstUser.setText("First User: No user found");
             return;
         }
 
-        UserDTO userDTO = UserDao.getUser(firstUserId);
+        UserDTO userDTO = SecureUserDao.getUser(firstUserId);
         tvFirstUser.setText("First User: " + userDTO.getFullName());
     }
 
     public void onCreateNewUserClick(View view) {
-        UserDao.insertUser(
+        SecureUserDao.insertUser(
                 "John",
                 "Doe",
                 20,
@@ -71,22 +71,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDeleteNewUser(View view) {
-        int firstUserId = UserDao.getFirstUserId();
+        int firstUserId = SecureUserDao.getFirstUserId();
         if (firstUserId == -1) {
             Toast.makeText(this, "No Users", Toast.LENGTH_SHORT).show();
             return;
         }
-        UserDao.deleteUser(firstUserId);
+        SecureUserDao.deleteUser(firstUserId);
         updateTexts();
     }
 
     public void onUpdateFirstUser(View view) {
-        int firstUserId = UserDao.getFirstUserId();
+        int firstUserId = SecureUserDao.getFirstUserId();
         if (firstUserId == -1) {
             Toast.makeText(this, "No Users", Toast.LENGTH_SHORT).show();
             return;
         }
-        UserDao.updateUser(
+        SecureUserDao.updateUser(
                 firstUserId,
                 "Jane",
                 "Doe",
